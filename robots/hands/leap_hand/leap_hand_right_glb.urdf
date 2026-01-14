@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <robot name="leap_right">
-  <link name="base"/>
-  <joint name="base_joint" type="fixed">
-    <parent link="base"/>
+  <link name="wrist"/>
+  <joint name="wrist_joint" type="fixed">
+    <parent link="wrist"/>
     <child link="palm_lower"/>
     <origin xyz="0 0.038 0.098" rpy="0 -1.57079 0"/>
   </joint>
@@ -785,28 +785,137 @@
   </joint>
 
   <!--  virtual auxiliary link-->
-  <link name="thumb_tip_head"/>
-  <link name="index_tip_head"/>
-  <link name="middle_tip_head"/>
-  <link name="ring_tip_head"/>
-  <joint name="thumb_tip" type="fixed">
+<!-- HAND_LANDMARKS = [
+    "wrist",
+    "thumb_cmc", "thumb_mcp", "thumb_ip", "thumb_tip",
+    "index_finger_mcp", "index_finger_pip", "index_finger_dip", "index_finger_tip",
+    "middle_finger_mcp", "middle_finger_pip", "middle_finger_dip", "middle_finger_tip",
+    "ring_finger_mcp", "ring_finger_pip", "ring_finger_dip", "ring_finger_tip",
+    "pinky_mcp", "pinky_pip", "pinky_dip", "pinky_tip",
+] -->
+
+<!-- LEAP_HAND_LINKS = [
+    "base",
+    "palm_lower",
+    "mcp_joint",
+    "pip",
+    "dip",
+    "fingertip",
+    "mcp_joint_2",
+    "pip_2",
+    "dip_2",
+    "fingertip_2",
+    "mcp_joint_3",
+    "pip_3",
+    "dip_3",
+    "fingertip_3",
+    "thumb_temp_base",
+    "thumb_pip",
+    "thumb_dip",
+    "thumb_fingertip",
+    "thumb_tip_head",
+    "index_tip_head",
+    "middle_tip_head",
+    "ring_tip_head",
+] -->
+
+  <!-- real actor of virtual mcp actors are palm_lower -->
+
+
+  <link name="thumb_cmc"/>
+  <link name="thumb_mcp"/>
+  <link name="thumb_ip"/>
+  <link name="thumb_tip"/>
+  <link name="index_finger_mcp"/>
+  <link name="index_finger_pip"/>
+  <link name="index_finger_dip"/>
+  <link name="index_finger_tip"/>
+  <link name="middle_finger_mcp"/>
+  <link name="middle_finger_pip"/>
+  <link name="middle_finger_dip"/>
+  <link name="middle_finger_tip"/>
+  <link name="ring_finger_mcp"/>
+  <link name="ring_finger_pip"/>
+  <link name="ring_finger_dip"/>
+  <link name="ring_finger_tip"/>
+  <joint name="thumb_cmc_joint" type="fixed">
+    <parent link="thumb_temp_base"/>
+    <child link="thumb_cmc"/>
+    <origin rpy="0 0 0" xyz="0 0 -0.014"/>
+  </joint>
+  <joint name="thumb_mcp_joint" type="fixed">
+    <parent link="thumb_dip"/>
+    <child link="thumb_mcp"/>
+    <origin rpy="0 0 0" xyz="0 0 -0.014"/>
+  </joint>
+  <joint name="thumb_ip_joint" type="fixed">
     <parent link="thumb_fingertip"/>
-    <child link="thumb_tip_head"/>
-    <origin rpy="0 0 0" xyz="0 -0.06 -0.015"/>
+    <child link="thumb_ip"/>
+    <origin rpy="0 0 0" xyz="0 0 -0.014"/>
   </joint>
-  <joint name="index_tip" type="fixed">
+  <joint name="thumb_tip_joint" type="fixed">
+    <parent link="thumb_fingertip"/>
+    <child link="thumb_tip"/>
+    <origin rpy="0 0 0" xyz="0 -0.05 -0.015"/>
+  </joint>
+  <joint name="index_finger_mcp_joint" type="fixed">
+    <parent link="mcp_joint"/>
+    <child link="index_finger_mcp"/>
+    <origin rpy="0 0 0" xyz="0 0 0.014"/>
+  </joint>
+  <joint name="index_finger_pip_joint" type="fixed">
+    <parent link="pip"/>
+    <child link="index_finger_pip"/>
+    <origin rpy="0 0 0" xyz="0.01 0 -0.014"/>
+  </joint>
+  <joint name="index_finger_dip_joint" type="fixed">
     <parent link="fingertip"/>
-    <child link="index_tip_head"/>
-    <origin rpy="0 0 0" xyz="0 -0.048 0.015"/>
+    <child link="index_finger_dip"/>
+    <origin rpy="0 0 0" xyz="0 0 0.014"/>
   </joint>
-  <joint name="middle_tip" type="fixed">
+  <joint name="index_finger_tip_joint" type="fixed">
+    <parent link="fingertip"/>
+    <child link="index_finger_tip"/>
+    <origin rpy="0 0 0" xyz="0 -0.04 0.015"/>
+  </joint>
+  <joint name="middle_finger_mcp_joint" type="fixed">
+    <parent link="mcp_joint_2"/>
+    <child link="middle_finger_mcp"/>
+    <origin rpy="0 0 0" xyz="0 0 0.014"/>
+  </joint>
+  <joint name="middle_finger_pip_joint" type="fixed">
+    <parent link="pip_2"/>
+    <child link="middle_finger_pip"/>
+    <origin rpy="0 0 0" xyz="0.01 0 -0.014"/>
+  </joint>
+  <joint name="middle_finger_dip_joint" type="fixed">
     <parent link="fingertip_2"/>
-    <child link="middle_tip_head"/>
-    <origin rpy="0 0 0" xyz="0 -0.048 0.015"/>
+    <child link="middle_finger_dip"/>
+    <origin rpy="0 0 0" xyz="0 0 0.014"/>
   </joint>
-  <joint name="ring_tip" type="fixed">
+  <joint name="middle_finger_tip_joint" type="fixed">
+    <parent link="fingertip_2"/>
+    <child link="middle_finger_tip"/>
+    <origin rpy="0 0 0" xyz="0 -0.04 0.015"/>
+  </joint>
+  <joint name="ring_finger_mcp_joint" type="fixed">
+    <parent link="mcp_joint_3"/>
+    <child link="ring_finger_mcp"/>
+    <origin rpy="0 0 0" xyz="0 0 0.014"/>
+  </joint>
+  <joint name="ring_finger_pip_joint" type="fixed">
+    <parent link="pip_3"/>
+    <child link="ring_finger_pip"/>
+    <origin rpy="0 0 0" xyz="0.01 0 -0.014"/>
+  </joint>
+  <joint name="ring_finger_dip_joint" type="fixed">
     <parent link="fingertip_3"/>
-    <child link="ring_tip_head"/>
-    <origin rpy="0 0 0" xyz="0 -0.048 0.015"/>
+    <child link="ring_finger_dip"/>
+    <origin rpy="0 0 0" xyz="0 0 0.014"/>
+  </joint>
+  <joint name="ring_finger_tip_joint" type="fixed">
+    <parent link="fingertip_3"/>
+    <child link="ring_finger_tip"/>
+    <origin rpy="0 0 0" xyz="0 -0.04 0.015"/>
   </joint>
 </robot>
